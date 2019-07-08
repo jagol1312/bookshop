@@ -18,4 +18,12 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/com.mchange/c3p0
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+    // kaptcha验证码
+    compile group: 'com.github.penggle', name: 'kaptcha', version: '2.3.2'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+    // https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis
+    compile group: 'org.springframework.session', name: 'spring-session-data-redis', version: '2.0.6.RELEASE'
 }
