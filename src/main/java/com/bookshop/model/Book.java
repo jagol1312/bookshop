@@ -33,12 +33,12 @@ public class Book {
   }
 
 
-  public String getIsbn() {
+  public String getisbn() {
     return isbn;
   }
 
-  public void setIsbn(String isdn) {
-    this.isbn = isdn;
+  public void setisbn(String isbn) {
+    this.isbn = isbn;
   }
 
 
