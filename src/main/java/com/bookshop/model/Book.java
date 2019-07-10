@@ -5,7 +5,7 @@ public class Book {
 
   private long bookid;
   private String bookname;
-  private String isdn;
+  private String isbn;
   private String press;
   private String author;
   private java.sql.Date pubdate;
@@ -33,12 +33,12 @@ public class Book {
   }
 
 
-  public String getIsdn() {
-    return isdn;
+  public String getIsbn() {
+    return isbn;
   }
 
-  public void setIsdn(String isdn) {
-    this.isdn = isdn;
+  public void setIsbn(String isdn) {
+    this.isbn = isdn;
   }
 
 

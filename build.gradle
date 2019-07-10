@@ -24,5 +24,8 @@ dependencies {
     compile group: 'com.github.penggle', name: 'kaptcha', version: '2.3.2'
     // https://mvnrepository.com/artifact/com.alibaba/fastjson
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+    
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
 
 }

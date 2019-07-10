@@ -18,7 +18,6 @@ public class UserService  {
     }
 
 
-
 /*登陆*/
     public User login(String username,String pwd,int rid){
 
@@ -32,8 +31,33 @@ public class UserService  {
         return null;
     }
 
-
-
-
-
+    /*注册 or 添加*/
+    public void adduserInfo(User user){
+        this.userdao.adduser(user);
+    }
+    /*
+    检测是否重名
+     */
+    public  boolean Selectusername(String name){
+        List<User> user=userdao.getUserInfoAll();
+        return user.contains(name);
+    }
+    /*
+    修改用户
+     */
+    public void updateuser(User user){
+        userdao.updateuser(user);
+    }
+    /*
+    查询所有用户
+     */
+    public List<User> getUserInfoAll(){
+        return userdao.getUserInfoAll();
+    }
+    /*
+    删除用户
+     */
+    public void deleteuser(long id){
+        userdao.deleteuser(id);
+    }
 }
