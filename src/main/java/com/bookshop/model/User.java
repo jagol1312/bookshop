@@ -17,6 +17,20 @@ public class User {
     return userid;
   }
 
+  @Override
+  public String toString() {
+    return "User{" +
+            "userid=" + userid +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", useraddress='" + useraddress + '\'' +
+            ", email='" + email + '\'' +
+            ", age=" + age +
+            ", sex=" + sex +
+            ", roleid=" + roleid +
+            '}';
+  }
+
   public void setUserid(long userid) {
     this.userid = userid;
   }
