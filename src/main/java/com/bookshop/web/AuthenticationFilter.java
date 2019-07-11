@@ -38,7 +38,7 @@ public class AuthenticationFilter implements Filter  {
 		String currentPath = ((HttpServletRequest)request).getRequestURI();
 		System.out.println("current path:"+currentPath);
 		
-		// 排除所有静态资源
+		// 排除主页
 		if (currentPath.endsWith("/book/SelectByBookId")) {
 			chain.doFilter(request, response);
 			return;
