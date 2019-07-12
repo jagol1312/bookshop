@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bookshop.model.User;
-import com.bookshop.service.ServiceFactory;
-import sun.awt.geom.AreaOp;
+import org.springframework.stereotype.Component;
 
-/**
+/*
  * 身份验证过滤器，只有登录用户才可以访问。
- * 注意，这里拦截所有请求,除了登录
- *
+ * 注意，这里拦截所有请求,除了登录和主页
  */
+
+
+@Component
 @WebFilter(filterName="authFilter", urlPatterns="/*")
 public class AuthenticationFilter implements Filter  {
 
@@ -34,17 +35,24 @@ public class AuthenticationFilter implements Filter  {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("gb2312");
 		response.setCharacterEncoding("gb2312");
-		
+
+		/*
+		打印请求内容
+		 */
+
+
 		String currentPath = ((HttpServletRequest)request).getRequestURI();
-		System.out.println("current path:"+currentPath);
-		
+		System.out.println("current url:"+currentPath);
+		System.out.println("HTTP_METHOD : " + ((HttpServletRequest)request).getMethod());
+		System.out.println("HTTP_HEAD Type : " + ((HttpServletRequest)request).getHeader("Content-Type"));
+		System.out.println("IP : " + request.getRemoteAddr());
+
 		// 排除主页
-		if (currentPath.endsWith("/book/SelectByBookId")) {
+		if (currentPath.endsWith("/book/SelectByBookId")||currentPath.endsWith("/book/AllBook")) {
 			chain.doFilter(request, response);
 			return;
         }
-		
-		
+
 		// 排除登录请求
 		if (currentPath.endsWith("/") || currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin") ) {
 			chain.doFilter(request, response);
@@ -55,10 +63,9 @@ public class AuthenticationFilter implements Filter  {
 		User user = (User)session.getAttribute("user");
 		if(user==null){
 			System.out.println("用户为空"+user);
-			((HttpServletResponse)response).getWriter().print("flase");
+			response.getWriter().print("false");
 		}
 		else{
-			//ServiceFactory.loginUsername = user.getUsername();
 			System.out.println("有用户"+user);
 			chain.doFilter(request, response);
 		}
