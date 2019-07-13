@@ -1,9 +1,7 @@
 package com.bookshop.dao;
 
 import com.bookshop.model.Book;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,5 +31,10 @@ public interface BookDao {
     /* 根据书籍名 修改书籍信息 */
     @Update("update book set bookname=#{bookname},isbn=#{isbn},press=#{press},author=#{author},pubdate=#{pubdate},price=#{price},bookintroduce=#{bookintroduce},stock=#{stock},type=#{type} where bookid=#{bookid} ")
     public void UpdateBookInfo(Book book);
-
+    /* 删除书籍*/
+    @Delete("delete from book where bookid = #{bookid}")
+    public void DeleteBookInfo(long bookid);
+   /*增加书籍*/
+    @Insert("insert into book(bookname,isbn,press,author,pubdate,price,bookintroduce,stock,type,picname) value(#{bookname},#{isbn},#{press},#{author},#{pubdate},#{price},#{bookintroduce},#{stock},#{type},#{picname})")
+    public void AddBookInfo(Book book);
 }

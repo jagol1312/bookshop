@@ -1,13 +1,18 @@
 package com.bookshop.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bookshop.model.Book;
+import com.bookshop.model.User;
 import com.bookshop.service.BookService;
+import com.bookshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -83,7 +88,41 @@ public class BookController {
         return bookService.GetAllTypeOfBookInfo();
     }
     /**
-     * 修改书籍信息
-     * @return
+     * 删除书籍
+     * @return JSON
      */
+    @RequestMapping("/DeleteBook")
+    public JSONObject delete(HttpServletRequest request, long id){
+        JSONUtil jsonUtil = new JSONUtil();
+        try {
+            bookService.DeleteBookInfo(id);
+            return jsonUtil.success("删除成功！");
+        }
+        catch (Exception ex){
+            return jsonUtil.success("删除失败！");
+        }
+    }
+    /**
+     * 增加书籍
+     * @return JSON
+     */
+    @PostMapping("/AddBook")
+    public JSONObject addbook(HttpServletRequest request, Book book)
+    {
+        //book.setPicname("book-01.jpg");
+        JSONUtil jsonUtil = new JSONUtil();
+
+
+        if (bookService.InsertBookInfo(book))
+        {
+            return jsonUtil.success("添加成功");
+        }
+        else
+        return jsonUtil.fail("添加失败");
+    }
+    /**
+     * 修改书籍
+     * @return JSON
+     */
+
 }

@@ -13,6 +13,7 @@ public class Book {
   private String bookintroduce;
   private long stock;
   private String type;
+  private String picname;
 
 
   public long getBookid() {
@@ -104,4 +105,12 @@ public class Book {
     this.type = type;
   }
 
+
+  public String getPicname() {
+    return picname;
+  }
+
+  public void setPicname(String picname) {
+    this.picname = picname;
+  }
 }
