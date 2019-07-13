@@ -2,12 +2,7 @@ package com.bookshop.web;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,31 +34,34 @@ public class AuthenticationFilter implements Filter  {
 		/*
 		打印请求内容
 		 */
-
-
 		String currentPath = ((HttpServletRequest)request).getRequestURI();
+		System.out.println("-------------------request server-----------------");
 		System.out.println("current url:"+currentPath);
 		System.out.println("HTTP_METHOD : " + ((HttpServletRequest)request).getMethod());
 		System.out.println("HTTP_HEAD Type : " + ((HttpServletRequest)request).getHeader("Content-Type"));
 		System.out.println("IP : " + request.getRemoteAddr());
-
-		// 排除主页
-		if (currentPath.endsWith("/book/SelectByBookId")||currentPath.endsWith("/book/AllBook")) {
+		System.out.println("-------------------request   end-----------------");
+		// 排除主页和书籍详情页
+		if (currentPath.endsWith("/book/SelectByBookId")||currentPath.endsWith("/book/AllBook")||currentPath.endsWith("/")){
 			chain.doFilter(request, response);
 			return;
         }
 
 		// 排除登录请求
-		if (currentPath.endsWith("/") || currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin") ) {
+		if (currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin") ) {
 			chain.doFilter(request, response);
 			return;
         }
-		
+
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){
 			System.out.println("用户为空"+user);
-			response.getWriter().print("false");
+			((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin","*");//接受任意域名的请求，允许所有域名跨域
+			((HttpServletResponse)response).addHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端进行访问操作的属性
+			((HttpServletResponse)response).addHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
+			((HttpServletResponse)response).addHeader("CONTEXTPATH","login.html");//重定向地址
+
 		}
 		else{
 			System.out.println("有用户"+user);
