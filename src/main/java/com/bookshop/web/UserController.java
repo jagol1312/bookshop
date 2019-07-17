@@ -57,7 +57,7 @@ public class UserController {
         }
     }
     /*
-    注册
+    注册or添加
      */
     @PostMapping("/register")
     public JSONObject add(HttpServletRequest request, User user){
@@ -74,6 +74,13 @@ public class UserController {
 
             return jsonUtil.fail("注册失败，用户已存在！");
         }
+    }
+    /*
+    查询用户信息
+     */
+    @RequestMapping("/userinfo")
+    public String getuserinfo(int userid){
+        return JSON.toJSONString(userService.getUserInfo(userid));
     }
 
     /*
