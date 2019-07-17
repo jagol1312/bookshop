@@ -92,7 +92,7 @@ public class BookController {
      * @return JSON
      */
     @RequestMapping("/DeleteBook")
-    public JSONObject delete(HttpServletRequest request, long id){
+    public JSONObject delete(long id){
         JSONUtil jsonUtil = new JSONUtil();
         try {
             bookService.DeleteBookInfo(id);
@@ -107,7 +107,7 @@ public class BookController {
      * @return JSON
      */
     @PostMapping("/AddBook")
-    public JSONObject addbook(HttpServletRequest request, Book book)
+    public JSONObject addbook( Book book)
     {
         //book.setPicname("book-01.jpg");
         JSONUtil jsonUtil = new JSONUtil();
@@ -120,9 +120,6 @@ public class BookController {
         else
         return jsonUtil.fail("添加失败");
     }
-    /**
-     * 修改书籍
-     * @return JSON
-     */
+
 
 }
