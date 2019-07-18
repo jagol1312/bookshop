@@ -1,8 +1,11 @@
 package com.bookshop.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bookshop.BookshopApplication;
+import com.bookshop.model.Book;
 import com.bookshop.model.Cart;
 import com.bookshop.model.User;
+import com.bookshop.service.BookService;
 import com.bookshop.service.CartService;
 import com.bookshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -19,33 +23,70 @@ import java.util.List;
 public class CartController {
     @Autowired
     private CartService cartService;
+    @Autowired
+    private BookService bookService;
 
+    @RequestMapping("/editCart")
+    public JSONObject editCart(HttpServletRequest request,long cartid,long cartquantity){
+        JSONUtil jsonUtil = new JSONUtil();
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
+      Cart cart=cartService.GetCartInfoByCartId(cartid);
+      long bookid=cart.getBookid();
+      Book book=bookService.GetBookInfoByBookId(bookid);
+      double price=book.getPrice();//书本单价
+     cart.getCartquantity();//购物车内的商品数量
+      cart.getCarttotal();//购物车商品数量
+      //long cartnumber=cart.getCartquantity()-cartquantity;
+      double carttotal=cartquantity*price;
+      cart.setCartquantity(cartquantity);
+      cart.setCarttotal(carttotal);
+      cartService.UpdateCartInfo(cart);
+      return jsonUtil.success("减少成功");
+    }
     /*
     *添加商品进购物车
-    *@param bookid userid cartquantity carttotal;
+    *@param bookid userid cartquantity;
     *@return Json
     * */
-    @PostMapping("/AddCart")
-    public JSONObject AddCart(HttpServletRequest request, Cart cart) {
+    @RequestMapping("/AddCart")
+    public JSONObject AddCart(HttpServletRequest request,long bookid,long cartquantity){
 
         JSONUtil jsonUtil = new JSONUtil();
-        String id = request.getParameter("bookid");
+       // Cart cart=new Cart();
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
-        long cartquantity = Long.parseLong(request.getParameter("cartquantity"));
-        long carttotal = Long.parseLong(request.getParameter("carttotal"));
-        long bookid = Long.parseLong(id);
-
+        String id = request.getParameter("bookid");
+        bookid = Long.parseLong(id);
         try {
-            cart.setUserid(userid);
-            cart.setBookid(bookid);
-            cart.setCartquantity(cartquantity);
-            cart.setCarttotal(carttotal);
-            cartService.AddCartInfo(cart);
 
-            return jsonUtil.success("添加成功");
-        } catch (Exception ex) {
+
+            if (cartService.SelectCartByuserIdBookId(userid, bookid) == null) {
+                Cart cart = new Cart();
+                Book book = bookService.GetBookInfoByBookId(bookid);
+                double price = (cartquantity * book.getPrice());
+                cart.setUserid(userid);
+                cart.setBookid(bookid);
+                cart.setCartquantity(cartquantity);
+                cart.setCarttotal(price);
+                cartService.AddCartInfo(cart);
+                return jsonUtil.success("添加成功");
+            } else {
+
+                Book book = bookService.GetBookInfoByBookId(bookid);
+                Cart cart = cartService.SelectCartByuserIdBookId(userid, bookid);
+                double allprice = (cartquantity * book.getPrice());
+                double price = (cart.getCarttotal() + allprice);
+                //double price = (cart.getCarttotal() + book.getPrice());
+                long bnumber = cart.getCartquantity() + cartquantity;
+                cart.setCartquantity(bnumber);
+                cart.setCarttotal(price);
+                cartService.UpdateCartInfo(cart);
+                return jsonUtil.success("添加成功");
+            }
+        }catch (Exception ex){
             return jsonUtil.fail("添加失败");
+
         }
+
     }
     /**
      * 清空用户购物车
@@ -82,6 +123,17 @@ public class CartController {
             return jsonUtil.success("删除成功");
         }
 
+    }
+    /**
+     * 查询单个用户购物车内容
+     * @param request userid
+     * @return Json
+     */
+    @RequestMapping("/GetCartInfo")
+    public List<Map> GetCartByUserid(HttpServletRequest request){
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
+        System.out.println( cartService.GetCartInfos(userid));
+        return cartService.GetCartInfos(userid);
     }
 
 

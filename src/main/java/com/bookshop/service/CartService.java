@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CartService {
@@ -36,5 +37,21 @@ public class CartService {
     /*查询cartid*/
     public String SelectCartByCartId(long cartid){
         return cartDao.SelectCartIdByCartId(cartid);
+    }
+    /*查询商品数量*/
+    public Cart SelectCartByuserIdBookId(long userid,long bookid){
+        return cartDao.SelectCartByUserIdBookId(userid,bookid);
+    }
+    /*修改商品数量金额*/
+    public void UpdateCartInfo(Cart cart){
+        cartDao.UpdateCartInfo(cart);
+    }
+    /*查询单个用户购物车内容*/
+    public List<Map> GetCartInfos(long userid){
+       return cartDao.SelectCartInfoByUserId(userid);
+    }
+    /*根据cartid查询购物车内容*/
+    public Cart GetCartInfoByCartId(long cartid){
+        return cartDao.SelectCartInfoByCartId(cartid);
     }
 }
