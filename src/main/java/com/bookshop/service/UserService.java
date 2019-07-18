@@ -49,8 +49,14 @@ public class UserService  {
         userdao.updateuser(user);
     }
     /*
-    查询所有用户
+    查询用户信息
      */
+    public User getUserInfo(int userid){
+        return userdao.getUserInfo(userid);
+    }
+    /*
+        查询所有用户
+         */
     public List<User> getUserInfoAll(){
         return userdao.getUserInfoAll();
     }

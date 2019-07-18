@@ -28,4 +28,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
     compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
 
+    // https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java
+    compile group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '3.7.4.ALL'
+
 }

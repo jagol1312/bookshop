@@ -21,6 +21,11 @@ public interface UserDao {
     @Insert("insert into user(username,password,useraddress,email,age,sex,roleid) value(#{username},#{password},#{useraddress},#{email},#{age},#{sex},#{roleid})")
     public void adduser(User user);
     /*
+    查询用户
+     */
+    @Select("select * from user where userid =#{userid}")
+    public User getUserInfo(int userid);
+    /*
     查询所有用户
      */
     @Select("select * from user ")

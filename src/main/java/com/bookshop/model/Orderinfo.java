@@ -1,14 +1,15 @@
 package com.bookshop.model;
 
 
-public class Order {
+public class Orderinfo {
 
   private long orderid;
   private long userid;
-  private long listid;
   private String orderaddress;
   private double ordertotal;
   private long state;
+  private java.sql.Date createtime;
+  private String books;
 
 
   public long getOrderid() {
@@ -26,15 +27,6 @@ public class Order {
 
   public void setUserid(long userid) {
     this.userid = userid;
-  }
-
-
-  public long getListid() {
-    return listid;
-  }
-
-  public void setListid(long listid) {
-    this.listid = listid;
   }
 
 
@@ -62,6 +54,24 @@ public class Order {
 
   public void setState(long state) {
     this.state = state;
+  }
+
+
+  public java.sql.Date getCreatetime() {
+    return createtime;
+  }
+
+  public void setCreatetime(java.sql.Date createtime) {
+    this.createtime = createtime;
+  }
+
+
+  public String getBooks() {
+    return books;
+  }
+
+  public void setBooks(String books) {
+    this.books = books;
   }
 
 }
