@@ -9,7 +9,7 @@ public class User {
   private String useraddress;
   private String email;
   private long age;
-  private long sex;
+  private String sex;
   private long roleid;
 
 
@@ -81,11 +81,11 @@ public class User {
   }
 
 
-  public long getSex() {
+  public String getSex() {
     return sex;
   }
 
-  public void setSex(long sex) {
+  public void setSex(String sex) {
     this.sex = sex;
   }
 

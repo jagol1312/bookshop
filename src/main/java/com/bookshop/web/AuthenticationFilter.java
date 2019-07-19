@@ -28,8 +28,8 @@ public class AuthenticationFilter implements Filter  {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		request.setCharacterEncoding("gb2312");
-		response.setCharacterEncoding("gb2312");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 
 		/*
 		打印请求内容
@@ -52,19 +52,22 @@ public class AuthenticationFilter implements Filter  {
 			chain.doFilter(request, response);
 			return;
         }
-
+		if(currentPath.endsWith("/notify")|| currentPath.endsWith("/returnUrl")){
+			chain.doFilter(request, response);
+			return;
+		}
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){
-			System.out.println("用户为空"+user);
+			System.out.println("user is empty："+user);
 			((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin","*");//接受任意域名的请求，允许所有域名跨域
 			((HttpServletResponse)response).addHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端获得到响应头
 			((HttpServletResponse)response).addHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
 			((HttpServletResponse)response).addHeader("CONTEXTPATH","login.html");//重定向地址
-
+			System.out.println("go into redirect！");
 		}
 		else{
-			System.out.println("有用户"+user);
+			System.out.println("user is existence："+user);
 			chain.doFilter(request, response);
 		}
 		

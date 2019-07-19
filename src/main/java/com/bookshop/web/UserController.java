@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     //用户登录
-    @RequestMapping(value = "/userlogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/userlogin")
     protected JSONObject userlogin(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");

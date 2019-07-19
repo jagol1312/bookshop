@@ -11,17 +11,17 @@ public interface OrderDao {
     /*
     以orderid查询
      */
-    @Select("select * from order where orderid=#{orderid}")
+    @Select("select * from orderinfo where orderid=#{orderid}")
     public Orderinfo getOrderInfoById(long orderid);
     /*
     以userid查询
      */
-    @Select("select * from order where userid = #{userid}")
+    @Select("select * from orderinfo where userid = #{userid}")
     public List<Orderinfo> getOrderByUserId(int userid);
     /*
     设置订单为已支付
      */
-    @Update("update order set state = 1 where orderid=#{orderid}")
+    @Update("update orderinfo set state = 1 where orderid=#{orderid}")
     public int setstatetoone(long orderid);
     /*
     创建订单
@@ -31,6 +31,6 @@ public interface OrderDao {
     /*
     删除订单
      */
-    @Delete("delete from order where orderid = #{orderid}")
+    @Delete("delete from orderinfo where orderid = #{orderid}")
     public int deleteOrderByOrderId(long orderid);
 }
