@@ -26,6 +26,11 @@ public class CartController {
     @Autowired
     private BookService bookService;
 
+    /*
+     *修改购物车中商品的数量
+     *@param request cartid cartquantity
+     *@return
+     * */
     @RequestMapping("/editCart")
     public JSONObject editCart(HttpServletRequest request,long cartid,long cartquantity){
         JSONUtil jsonUtil = new JSONUtil();
@@ -41,7 +46,7 @@ public class CartController {
       cart.setCartquantity(cartquantity);
       cart.setCarttotal(carttotal);
       cartService.UpdateCartInfo(cart);
-      return jsonUtil.success("减少成功");
+      return jsonUtil.success("修改成功");
     }
     /*
     *添加商品进购物车
@@ -53,7 +58,7 @@ public class CartController {
 
         JSONUtil jsonUtil = new JSONUtil();
        // Cart cart=new Cart();
-        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();//获得session用户id
         String id = request.getParameter("bookid");
         bookid = Long.parseLong(id);
         try {
@@ -61,8 +66,8 @@ public class CartController {
 
             if (cartService.SelectCartByuserIdBookId(userid, bookid) == null) {
                 Cart cart = new Cart();
-                Book book = bookService.GetBookInfoByBookId(bookid);
-                double price = (cartquantity * book.getPrice());
+                Book book = bookService.GetBookInfoByBookId(bookid);//获得书籍信息
+                double price = (cartquantity * book.getPrice());//总价
                 cart.setUserid(userid);
                 cart.setBookid(bookid);
                 cart.setCartquantity(cartquantity);
@@ -71,12 +76,12 @@ public class CartController {
                 return jsonUtil.success("添加成功");
             } else {
 
-                Book book = bookService.GetBookInfoByBookId(bookid);
-                Cart cart = cartService.SelectCartByuserIdBookId(userid, bookid);
-                double allprice = (cartquantity * book.getPrice());
-                double price = (cart.getCarttotal() + allprice);
+                Book book = bookService.GetBookInfoByBookId(bookid);//获得书籍信息
+                Cart cart = cartService.SelectCartByuserIdBookId(userid, bookid);//获取购物车中书籍的信息
+                double allprice = (cartquantity * book.getPrice());//计算金额
+                double price = (cart.getCarttotal() + allprice);//购物车金额累加
                 //double price = (cart.getCarttotal() + book.getPrice());
-                long bnumber = cart.getCartquantity() + cartquantity;
+                long bnumber = cart.getCartquantity() + cartquantity;//数量累加
                 cart.setCartquantity(bnumber);
                 cart.setCarttotal(price);
                 cartService.UpdateCartInfo(cart);
