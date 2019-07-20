@@ -47,15 +47,15 @@ public class BookController {
     /**
      * 根据书籍类型查询 将结果显示书籍列表页面
      * @param request type
-     * @return book/list
+     * @return
      */
     @GetMapping("/SelectByType")
-    public String GetBookInfoByType(HttpServletRequest request, Model model)
+    public List<Book> GetBookInfoByType(HttpServletRequest request, String type)
     {
-        String type = request.getParameter("type");
-        model.addAttribute("SelectByType", bookService.GetBookInfoByType(type));
-        //return bookService.GetBookInfoByType(type);
-        return "/list";
+        type = request.getParameter("type");
+
+        return bookService.GetBookInfoByType(type);
+     /*   return "/list";*/
     }
     /**
      * 根据书籍id查询 返回结果
