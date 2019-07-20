@@ -33,4 +33,7 @@ public interface OrderDao {
      */
     @Delete("delete from orderinfo where orderid = #{orderid}")
     public int deleteOrderByOrderId(long orderid);
+
+    @Delete("delete from orderinfo where userid = #{userid}")
+    public void deleteOrderByUserId(long userid);
 }

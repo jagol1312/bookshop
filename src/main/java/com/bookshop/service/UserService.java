@@ -12,6 +12,12 @@ public class UserService  {
     @Autowired
     private UserDao userdao;
 
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private OrderService orderService;
+
     /*根据id查询*/
     public User getUserInfoById(long id){
         return this.userdao.getUserInfoById(id);
@@ -63,7 +69,9 @@ public class UserService  {
     /*
     删除用户
      */
-    public void deleteuser(long id){
-        userdao.deleteuser(id);
+    public int deleteuser(long id){
+        cartService.DeleteAllCartByUserId(id);
+        orderService.deleteorderbyuserid(id);
+        return userdao.deleteuser(id);
     }
 }

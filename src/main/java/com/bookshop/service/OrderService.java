@@ -36,4 +36,10 @@ public class OrderService {
     public List<Orderinfo> getOrderByUserId(int userid){
        return orderDao.getOrderByUserId(userid);
     }
+    /*
+    删除订单
+     */
+    public void deleteorderbyuserid(long userid){
+         orderDao.deleteOrderByUserId(userid);
+    }
 }
