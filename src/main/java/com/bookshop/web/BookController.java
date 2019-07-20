@@ -96,10 +96,10 @@ public class BookController {
         JSONUtil jsonUtil = new JSONUtil();
         try {
             bookService.DeleteBookInfo(id);
-            return jsonUtil.success("删除成功！");
+            return jsonUtil.success("删除成功");
         }
         catch (Exception ex){
-            return jsonUtil.success("删除失败！");
+            return jsonUtil.success("删除失败");
         }
     }
     /**

@@ -73,7 +73,7 @@ public class CartController {
                 cart.setCartquantity(cartquantity);
                 cart.setCarttotal(price);
                 cartService.AddCartInfo(cart);
-                return jsonUtil.success("添加成功1");
+                return jsonUtil.success("添加成功");
             } else {
 
                 Book book = bookService.GetBookInfoByBookId(bookid);//获得书籍信息
@@ -85,7 +85,7 @@ public class CartController {
                 cart.setCartquantity(bnumber);
                 cart.setCarttotal(price);
                 cartService.UpdateCartInfo(cart);
-                return jsonUtil.success("添加成功2");
+                return jsonUtil.success("添加成功");
             }
         }catch (Exception ex){
             ex.printStackTrace();

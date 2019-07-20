@@ -5,7 +5,6 @@ public class Cart {
 
   private long cartid;
   private long userid;
-
   private long bookid;
   private long cartquantity;
   private double carttotal;
