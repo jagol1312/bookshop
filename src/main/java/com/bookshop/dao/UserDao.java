@@ -39,5 +39,5 @@ public interface UserDao {
     删除用户
      */
     @Delete("delete from user where userid=#{userid}")
-    public void deleteuser(long userid);
+    public int deleteuser(long userid);
 }

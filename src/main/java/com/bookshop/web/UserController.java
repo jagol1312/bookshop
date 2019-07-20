@@ -21,13 +21,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    JSONUtil jsonUtil = new JSONUtil();
     //用户登录
     @RequestMapping(value = "/userlogin")
     protected JSONObject userlogin(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.login(username, password, 2);
-        JSONUtil jsonUtil = new JSONUtil();
+
         if (user == null) return jsonUtil.fail("用户名或者密码错误！");
 //        else if (!CodeUtil.checkVerifyCode(request)) {
 //            return jsonUtil.fail("验证码错误！");
@@ -45,7 +46,6 @@ public class UserController {
         String adminname = request.getParameter("username");
         String password = request.getParameter("password");
         User adminInfo = userService.login(adminname, password, 3);
-        JSONUtil jsonUtil = new JSONUtil();
 
         if (adminInfo == null) return jsonUtil.fail("管理员名或者密码错误！");
 //        else if (!CodeUtil.checkVerifyCode(request)) {
@@ -62,7 +62,7 @@ public class UserController {
     @PostMapping("/register")
     public JSONObject add(HttpServletRequest request, User user){
         String username = request.getParameter("username");
-        JSONUtil jsonUtil = new JSONUtil();
+
         if (!userService.Selectusername(username)){
             userService.adduserInfo(user);
             return jsonUtil.success("注册成功！");
@@ -79,8 +79,9 @@ public class UserController {
     查询用户信息
      */
     @RequestMapping("/userinfo")
-    public String getuserinfo(int userid){
-        return JSON.toJSONString(userService.getUserInfo(userid));
+    public String getuserinfo(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user");
+        return JSON.toJSONString(userService.getUserInfo((int)user.getUserid()));
     }
 
     /*
@@ -88,7 +89,7 @@ public class UserController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     protected JSONObject logout(HttpServletRequest request) {
-        JSONUtil jsonUtil = new JSONUtil();
+
         request.getSession().removeAttribute("user");
         return jsonUtil.success("退出成功！");
     }
@@ -96,8 +97,8 @@ public class UserController {
     修改用户
      */
     @PostMapping("/edit")
-    public JSONObject edit(HttpServletRequest request, User user){
-        JSONUtil jsonUtil = new JSONUtil();
+    public JSONObject edit(User user){
+
             this.userService.updateuser(user);
             return jsonUtil.success("修改成功！");
     }
@@ -108,5 +109,14 @@ public class UserController {
     public String list(HttpServletRequest request){
         return JSON.toJSONString(userService.getUserInfoAll());
     }
-
+    /*
+    删除用户
+     */
+    @RequestMapping("/deleteuser")
+    public JSONObject deleteuser(long userid){
+        if(userService.deleteuser(userid)>0)
+            return jsonUtil.success("删除成功！");
+        else
+            return jsonUtil.fail("删除失败！");
+    }
 }
