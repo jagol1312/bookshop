@@ -120,6 +120,15 @@ public class BookController {
         else
         return jsonUtil.fail("添加失败");
     }
+    /**
+     * 查询N本新书
+     * @param number
+     * @return
+     */
+    @RequestMapping("/NewBookF")
+    public List<Book> GetNewBook(long number){
+        return bookService.SelectNewBookF(number);
+    }
 
 
 }

@@ -37,4 +37,7 @@ public interface BookDao {
    /*增加书籍*/
     @Insert("insert into book(bookname,isbn,press,author,pubdate,price,bookintroduce,stock,type,picname) value(#{bookname},#{isbn},#{press},#{author},#{pubdate},#{price},#{bookintroduce},#{stock},#{type},#{picname})")
     public void AddBookInfo(Book book);
+   /*新书推荐*/
+    @Select( "SELECT * from book ORDER BY bookid DESC LIMIT #{number} ")
+    public List<Book> SelectNewBookF(@Param("number") long number);
 }

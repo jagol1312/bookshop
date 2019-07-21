@@ -110,4 +110,12 @@ public class BookService {
             return false;
         }
     }
+    /**
+     * 查询4本新书
+     *
+     * @return list<String>
+     */
+     public  List<Book> SelectNewBookF(long number){
+           return  bookDao.SelectNewBookF(number);
+     }
 }
