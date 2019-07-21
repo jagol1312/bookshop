@@ -59,15 +59,15 @@ public class AuthenticationFilter implements Filter  {
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){
-			System.out.println("user is empty："+user);
+			//System.out.println("user is empty："+user);
 			((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin","*");//接受任意域名的请求，允许所有域名跨域
 			((HttpServletResponse)response).addHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端获得到响应头
 			((HttpServletResponse)response).addHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
 			((HttpServletResponse)response).addHeader("CONTEXTPATH","login.html");//重定向地址
-			System.out.println("go into redirect！");
+			//System.out.println("go into redirect！");
 		}
 		else{
-			System.out.println("user is existence："+user);
+			//System.out.println("user is existence："+user);
 			chain.doFilter(request, response);
 		}
 		
