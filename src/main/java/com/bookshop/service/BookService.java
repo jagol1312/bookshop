@@ -115,7 +115,7 @@ public class BookService {
      *
      * @return list<String>
      */
-     public  List<Book> SelectNewBookF(long number){
-           return  bookDao.SelectNewBookF(number);
+     public  List<Book> SelectNewBook(long number){
+           return  bookDao.SelectNewBook(number);
      }
 }

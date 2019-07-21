@@ -125,9 +125,9 @@ public class BookController {
      * @param number
      * @return
      */
-    @RequestMapping("/NewBookF")
+    @RequestMapping("/GetNewBook")
     public List<Book> GetNewBook(long number){
-        return bookService.SelectNewBookF(number);
+        return bookService.SelectNewBook(number);
     }
 
 

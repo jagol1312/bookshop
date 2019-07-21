@@ -39,5 +39,5 @@ public interface BookDao {
     public void AddBookInfo(Book book);
    /*新书推荐*/
     @Select( "SELECT * from book ORDER BY bookid DESC LIMIT #{number} ")
-    public List<Book> SelectNewBookF(@Param("number") long number);
+    public List<Book> SelectNewBook(@Param("number") long number);
 }
