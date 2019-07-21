@@ -34,7 +34,7 @@ public interface CartDao {
     @Update("update cart set cartquantity=#{cartquantity},carttotal=#{carttotal} where bookid=#{bookid} ")
     public void UpdateCartInfo(Cart cart);
     /*显示购物车*/
-    @Select("SELECT cart.cartid,book.picname,cart.cartquantity,book.bookname,book.price FROM book right JOIN cart ON book.bookid=cart.bookid and cart.userid=#{userid}")
+    @Select("SELECT cart.cartid,book.bookid,book.picname,cart.cartquantity,book.bookname,book.price FROM book right JOIN cart ON book.bookid=cart.bookid and cart.userid=#{userid}")
     public List<Map> SelectCartInfoByUserId(long userid);
     /*根据cartid查询购物车内容*/
     @Select("Select * from cart where cartid=#{cartid}")
