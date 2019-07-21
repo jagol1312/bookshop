@@ -133,13 +133,24 @@ public class CartController {
     /**
      * 查询单个用户购物车内容
      * @param request userid
-     * @return Json
+     * @return
      */
     @RequestMapping("/GetCartInfo")
     public List<Map> GetCartByUserid(HttpServletRequest request){
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
         System.out.println( cartService.GetCartInfos(userid));
         return cartService.GetCartInfos(userid);
+    }
+    /**
+     * user购物车总价
+     * @param request userid
+     * @return
+     */
+    @RequestMapping("/GetCartAmount")
+    public double GetCartAmount(HttpServletRequest request){
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
+
+        return cartService.SelectCartAmount(userid);
     }
 
 

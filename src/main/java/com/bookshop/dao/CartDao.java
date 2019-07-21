@@ -39,5 +39,8 @@ public interface CartDao {
     /*根据cartid查询购物车内容*/
     @Select("Select * from cart where cartid=#{cartid}")
     public Cart SelectCartInfoByCartId(long cartid);
+    /*user购物车总价*/
+    @Select("SELECT SUM(carttotal) from cart WHERE userid=#{userid}")
+    public double SelectCartAmount(long userid);
 
 }

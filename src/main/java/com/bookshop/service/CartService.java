@@ -54,4 +54,8 @@ public class CartService {
     public Cart GetCartInfoByCartId(long cartid){
         return cartDao.SelectCartInfoByCartId(cartid);
     }
+    /*user购物车总价*/
+    public double SelectCartAmount(long userid){
+        return cartDao.SelectCartAmount(userid);
+    }
 }
