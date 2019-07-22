@@ -19,4 +19,12 @@ public class JSONUtil {
         jsonObject.put("data", object);
         return jsonObject;
     }
+
+    public JSONObject jump(Object object) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", "未登录");
+        jsonObject.put("status", "2");
+        jsonObject.put("data", object);
+        return jsonObject;
+    }
 }

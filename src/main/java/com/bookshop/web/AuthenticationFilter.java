@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bookshop.model.User;
+import com.bookshop.util.JSONUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -30,7 +31,11 @@ public class AuthenticationFilter implements Filter  {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-
+		((HttpServletResponse)response).setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,REDIRECT,CONTEXTPATH");
+		((HttpServletResponse)response).setHeader("Access-Control-Allow-Credentials","true"); //是否支持cookie跨域
+		((HttpServletResponse)response).setHeader("Access-Control-Allow-Origin","http://39.106.86.107:8080");//接受域名的请求，
+		((HttpServletResponse)response).setHeader("Access-Control-Allow-Origin","null");
+		((HttpServletResponse)response).setHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端获得到响应头
 		/*
 		打印请求内容
 		 */
@@ -46,7 +51,11 @@ public class AuthenticationFilter implements Filter  {
 			chain.doFilter(request, response);
 			return;
         }
-
+		//排除查询书籍
+        if (currentPath.endsWith("/book/SelectByName")|| currentPath.endsWith("/book/GetNewBook") ) {
+            chain.doFilter(request, response);
+            return;
+        }
 		// 排除登录请求
 		if (currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin") ) {
 			chain.doFilter(request, response);
@@ -59,15 +68,13 @@ public class AuthenticationFilter implements Filter  {
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){
-			//System.out.println("user is empty："+user);
-			((HttpServletResponse)response).addHeader("Access-Control-Allow-Origin","*");//接受任意域名的请求，允许所有域名跨域
-			((HttpServletResponse)response).addHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端获得到响应头
-			((HttpServletResponse)response).addHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
+			System.out.println("user is empty："+user);
+
+			((HttpServletResponse)response).setHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
 			((HttpServletResponse)response).addHeader("CONTEXTPATH","login.html");//重定向地址
-			//System.out.println("go into redirect！");
 		}
 		else{
-			//System.out.println("user is existence："+user);
+			System.out.println("user is existence："+user);
 			chain.doFilter(request, response);
 		}
 		
