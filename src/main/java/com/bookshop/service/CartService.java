@@ -58,4 +58,8 @@ public class CartService {
     public double SelectCartAmount(long userid){
         return cartDao.SelectCartAmount(userid);
     }
+
+    public String getcartbooksname(long userid){
+        return cartDao.getcartbooksname(userid);
+    }
 }

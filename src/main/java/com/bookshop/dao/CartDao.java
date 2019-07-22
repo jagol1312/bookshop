@@ -42,5 +42,6 @@ public interface CartDao {
     /*user购物车总价*/
     @Select("SELECT SUM(carttotal) from cart WHERE userid=#{userid}")
     public double SelectCartAmount(long userid);
-
+    @Select("selete book.bookname FROM book JOIN cart on cart.bookid = book.bookid and cart.userid = #{userid}")
+    public String getcartbooksname(long userid);
 }

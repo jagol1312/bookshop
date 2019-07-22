@@ -1,6 +1,8 @@
 package com.bookshop.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bookshop.model.User;
+import com.bookshop.service.CartService;
 import com.bookshop.service.OrderService;
 import com.bookshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bookshop.model.Orderinfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -15,13 +18,17 @@ import java.util.List;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private CartService cartService;
     JSONUtil jsonUtil = new JSONUtil();
     /*
     创建订单
      */
     @RequestMapping("/addorder")
-    public JSONObject addOrder(Orderinfo orderinfo){
+    public JSONObject addOrder(HttpServletRequest request, Orderinfo orderinfo){
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
+        orderinfo.setUserid(userid);
+        orderinfo.setBooks(cartService.getcartbooksname(userid));
         if(orderService.addOrder(orderinfo)>0)
             return jsonUtil.success("创建订单成功");
         else
