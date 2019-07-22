@@ -31,11 +31,11 @@ public class AuthenticationFilter implements Filter  {
 			throws IOException, ServletException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		((HttpServletResponse)response).setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,REDIRECT,CONTEXTPATH");
+		((HttpServletResponse)response).setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,REDIRECT,CONTEXTPATH,path");
 		((HttpServletResponse)response).setHeader("Access-Control-Allow-Credentials","true"); //是否支持cookie跨域
 		((HttpServletResponse)response).setHeader("Access-Control-Allow-Origin","http://39.106.86.107:8080");//接受域名的请求，
 		((HttpServletResponse)response).setHeader("Access-Control-Allow-Origin","null");
-		((HttpServletResponse)response).setHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH");//服务器 headers 白名单，可以让客户端获得到响应头
+		((HttpServletResponse)response).setHeader("Access-Control-Expose-Headers", "REDIRECT,CONTEXTPATH,path");//服务器 headers 白名单，可以让客户端获得到响应头
 		/*
 		打印请求内容
 		 */
@@ -75,7 +75,7 @@ public class AuthenticationFilter implements Filter  {
 			if(admin==null){
 				System.out.println("admin is empty："+admin);
 				((HttpServletResponse)response).setHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
-				((HttpServletResponse)response).addHeader("contextpath","adminlogin.html");//重定向地址
+				((HttpServletResponse)response).addHeader("path","adminlogin.html");//重定向地址
 			}
 			else{
 				System.out.println("admin is existence："+admin);
