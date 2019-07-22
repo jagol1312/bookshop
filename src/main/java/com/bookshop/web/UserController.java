@@ -79,9 +79,9 @@ public class UserController {
     查询用户信息
      */
     @RequestMapping("/userinfo")
-    public String getuserinfo(HttpServletRequest request){
+    public User getuserinfo(HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user");
-        return JSON.toJSONString(userService.getUserInfo((int)user.getUserid()));
+        return userService.getUserInfo((int)user.getUserid());
     }
 
     /*
