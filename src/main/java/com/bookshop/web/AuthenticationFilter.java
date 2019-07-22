@@ -69,7 +69,7 @@ public class AuthenticationFilter implements Filter  {
 			chain.doFilter(request, response);
 			return;
 		}
-		if(currentPath.endsWith("/user/list")||currentPath.endsWith("/user/deleteuser")||currentPath.endsWith("/book/AddBook")||currentPath.endsWith("/book/DeleteBook")||currentPath.endsWith("/book/EditBook")||currentPath.endsWith("/")){
+		if(currentPath.endsWith("/user/list")||currentPath.endsWith("/user/deleteuser")||currentPath.endsWith("/book/AddBook")||currentPath.endsWith("/book/DeleteBook")||currentPath.endsWith("/book/EditBook")||currentPath.endsWith("/order/getorders")){
 			HttpSession session=((HttpServletRequest)request).getSession();
 			User admin = (User)session.getAttribute("admin");
 			if(admin==null){
