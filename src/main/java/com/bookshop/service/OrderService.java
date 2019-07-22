@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.bookshop.model.Orderinfo;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -34,7 +35,7 @@ public class OrderService {
     /*
     以userid查询订单
      */
-    public List<Orderinfo> getOrderByUserId(long userid){
+    public List<Map> getOrderByUserId(long userid){
        return orderDao.getOrderByUserId(userid);
     }
     /*

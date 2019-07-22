@@ -69,7 +69,7 @@ public class OrderController {
     以userid查询
      */
     @RequestMapping("/getorderbyuserid")
-    public List<Orderinfo> getOrderByUserId(HttpServletRequest request){
+    public List<Map> getOrderByUserId(HttpServletRequest request){
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
         return orderService.getOrderByUserId(userid);
     }

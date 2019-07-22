@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import com.bookshop.model.Orderinfo;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
@@ -16,8 +17,8 @@ public interface OrderDao {
     /*
     以userid查询
      */
-    @Select("select * from orderinfo where userid = #{userid}")
-    public List<Orderinfo> getOrderByUserId(long userid);
+    @Select("select orderinfo.*, user.username from orderinfo join user on orderinfo.userid = #{userid} and user.userid=#{userid}")
+    public List<Map> getOrderByUserId(long userid);
     /*
     设置订单为已支付
      */
