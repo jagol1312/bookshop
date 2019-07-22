@@ -65,6 +65,13 @@ public class AuthenticationFilter implements Filter  {
 			chain.doFilter(request, response);
 			return;
 		}
+		if(currentPath.endsWith("/Kaptcha")){
+			chain.doFilter(request, response);
+			return;
+		}
+		if(currentPath.endsWith("/user/list")||currentPath.endsWith("/user/deleteuser")||currentPath.endsWith("/")){
+
+		}
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){

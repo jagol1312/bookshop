@@ -146,7 +146,7 @@ public class CartController {
      * @param request userid
      * @return
      */
-    @RequestMapping("/ ")
+    @RequestMapping("/GetCartAmount")
     public double GetCartAmount(HttpServletRequest request){
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
 
