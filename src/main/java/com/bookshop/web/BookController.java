@@ -129,6 +129,14 @@ public class BookController {
     public List<Book> GetNewBook(long number){
         return bookService.SelectNewBook(number);
     }
-
-
+    /**
+     * 修改书籍信息
+     */
+    @RequestMapping("/EditBook")
+    public JSONObject EditBook(Book book){
+        JSONUtil jsonUtil = new JSONUtil();
+        bookService.UpdateBook(book);
+        return jsonUtil.success("添加成功");
+    }
 }
+

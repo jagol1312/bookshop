@@ -79,11 +79,8 @@ public class BookService {
     /**
      * 修改书籍信息
      */
-    @PostMapping("/EditBook")
-    public JSONObject edit(HttpServletRequest request, Book book){
-        JSONUtil jsonUtil = new JSONUtil();
+    public void UpdateBook(Book book){
         this.bookDao.UpdateBookInfo(book);
-        return jsonUtil.success("修改成功！");
     }
 
     /**
