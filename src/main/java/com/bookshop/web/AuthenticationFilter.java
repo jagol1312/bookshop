@@ -47,7 +47,7 @@ public class AuthenticationFilter implements Filter  {
 		System.out.println("IP : " + request.getRemoteAddr());
 		System.out.println("-------------------request   end-----------------");
 		// 排除主页和书籍详情页
-		if (currentPath.endsWith("/book/SelectByBookId")||currentPath.endsWith("/book/AllBook")||currentPath.endsWith("/")){
+		if (currentPath.endsWith("/book/SelectByBookId")||currentPath.endsWith("/book/AllBook")||currentPath.endsWith("/upload")){
 			chain.doFilter(request, response);
 			return;
         }
@@ -69,9 +69,19 @@ public class AuthenticationFilter implements Filter  {
 			chain.doFilter(request, response);
 			return;
 		}
-//		if(currentPath.endsWith("/user/list")||currentPath.endsWith("/user/deleteuser")||currentPath.endsWith("/")){
-//
-//		}
+		if(currentPath.endsWith("/user/list")||currentPath.endsWith("/user/deleteuser")||currentPath.endsWith("/book/AddBook")||currentPath.endsWith("/book/DeleteBook")||currentPath.endsWith("/book/EditBook")||currentPath.endsWith("/")){
+			HttpSession session=((HttpServletRequest)request).getSession();
+			User admin = (User)session.getAttribute("admin");
+			if(admin==null){
+				System.out.println("admin is empty："+admin);
+				((HttpServletResponse)response).setHeader("REDIRECT", "REDIRECT");//告诉ajax这是重定向
+				((HttpServletResponse)response).addHeader("contextpath","adminlogin.html");//重定向地址
+			}
+			else{
+				System.out.println("admin is existence："+admin);
+				chain.doFilter(request, response);
+			}
+		}
 		HttpSession session=((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("user");
 		if(user==null){

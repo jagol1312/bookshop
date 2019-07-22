@@ -73,4 +73,8 @@ public class OrderController {
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
         return orderService.getOrderByUserId(userid);
     }
+    @RequestMapping("/getorders")
+    public List<Orderinfo> getorders(){
+        return orderService.getorders();
+    }
 }
