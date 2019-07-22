@@ -46,7 +46,7 @@ public class CartController {
       cart.setCartquantity(cartquantity);
       cart.setCarttotal(carttotal);
       cartService.UpdateCartInfo(cart);
-      return jsonUtil.success("修改成功");
+      return jsonUtil.success(cartService.SelectCartAmount(userid));
     }
     /*
     *添加商品进购物车
@@ -146,7 +146,7 @@ public class CartController {
      * @param request userid
      * @return
      */
-    @RequestMapping("/GetCartAmount")
+    @RequestMapping("/ ")
     public double GetCartAmount(HttpServletRequest request){
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
 
