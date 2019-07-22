@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookshop.model.Orderinfo;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/order")
@@ -28,7 +31,18 @@ public class OrderController {
     public JSONObject addOrder(HttpServletRequest request, Orderinfo orderinfo){
         long userid = ((User) request.getSession().getAttribute("user")).getUserid();
         orderinfo.setUserid(userid);
-        orderinfo.setBooks(cartService.getcartbooksname(userid));
+        StringBuffer s = new StringBuffer();
+        List<Map> list = cartService.getcartbooksname(userid);
+        for(int i = 0; i < list.size(); i++) {
+            Map map = list.get(i);
+            Set set = map.keySet();
+            Iterator it = set.iterator();
+            while(it.hasNext()) {
+                s.append(map.get(it.next())+" ");
+            }
+        }
+        orderinfo.setBooks(s.toString());
+
         if(orderService.addOrder(orderinfo)>0)
             return jsonUtil.success("创建订单成功");
         else

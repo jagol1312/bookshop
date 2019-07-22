@@ -59,7 +59,7 @@ public class CartService {
         return cartDao.SelectCartAmount(userid);
     }
 
-    public String getcartbooksname(long userid){
+    public List<Map> getcartbooksname(long userid){
         return cartDao.getcartbooksname(userid);
     }
 }
