@@ -17,7 +17,7 @@ public interface OrderDao {
     以userid查询
      */
     @Select("select * from orderinfo where userid = #{userid}")
-    public List<Orderinfo> getOrderByUserId(int userid);
+    public List<Orderinfo> getOrderByUserId(long userid);
     /*
     设置订单为已支付
      */

@@ -34,7 +34,7 @@ public class OrderService {
     /*
     以userid查询订单
      */
-    public List<Orderinfo> getOrderByUserId(int userid){
+    public List<Orderinfo> getOrderByUserId(long userid){
        return orderDao.getOrderByUserId(userid);
     }
     /*
