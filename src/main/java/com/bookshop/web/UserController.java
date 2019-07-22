@@ -98,7 +98,6 @@ public class UserController {
      */
     @PostMapping("/edit")
     public JSONObject edit(User user){
-
             this.userService.updateuser(user);
             return jsonUtil.success("修改成功！");
     }
@@ -106,8 +105,8 @@ public class UserController {
     用户列表
      */
     @RequestMapping("/list")
-    public String list(HttpServletRequest request){
-        return JSON.toJSONString(userService.getUserInfoAll());
+    public List<User> list(HttpServletRequest request){
+        return userService.getUserInfoAll();
     }
     /*
     删除用户

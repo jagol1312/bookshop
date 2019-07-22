@@ -6,11 +6,13 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.bookshop.config.AlipayConfig;
 import com.bookshop.service.OrderService;
 import com.bookshop.util.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.bookshop.model.Orderinfo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-@RestController
+@Controller
 public class AlipayDemoController {
     @Autowired
     private OrderService orderService;
@@ -31,7 +33,6 @@ public class AlipayDemoController {
     public String goAlipay(HttpServletRequest request, HttpServletRequest response, int orderid) throws Exception {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
-
         //设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setReturnUrl(AlipayConfig.return_url);
@@ -59,15 +60,14 @@ public class AlipayDemoController {
 
         //请求
         String result = alipayClient.pageExecute(alipayRequest).getBody();
-
         //System.out.println("返回页面"+ result);
         return result;
     }
 
     @RequestMapping("/returnUrl")
-    public JSONObject returnUrl(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, AlipayApiException {
+    public String returnUrl(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, AlipayApiException {
         response.setContentType("text/html;charset=utf-8");
-
+        response.setCharacterEncoding("utf-8");
         boolean verifyResult = rsaCheckV1(request);
         if(verifyResult){
             //验证成功
@@ -81,10 +81,35 @@ public class AlipayDemoController {
 
             orderService.setstatetoone(Integer.parseInt(out_trade_no));
 
-            return jsonUtil.success("支付成功");
+            return "<html>\n" +
+                    "<head>\n" +
+                    "\t<meta charset=\"UTF-8\">\n" +
+                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                    "\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body>\n" +
+                    "<a href=\"index.html\">返回</a>\n" +
+                    "\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
 
         }else{
-            return jsonUtil.fail("支付失败");
+            return "<html>\n" +
+                    "<head>\n" +
+                    "\t<meta charset=\"UTF-8\">\n" +
+                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                    "\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body>\n" +
+                    "<a href=\"index.html\">支付失败,点击返回</a>\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
 
         }
     }
@@ -118,7 +143,7 @@ public class AlipayDemoController {
     }
 
     @RequestMapping("notify")
-    public JSONObject notify(HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException {
+    public String notify(HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException {
         // 一定要验签，防止黑客篡改参数
 //        Map<String, String[]> parameterMap = request.getParameterMap();
 //        StringBuilder notifyBuild = new StringBuilder("/****************************** alipay notify ******************************/\n");
@@ -173,10 +198,34 @@ public class AlipayDemoController {
 
             }
             orderService.setstatetoone(Integer.parseInt(out_trade_no));
-            return jsonUtil.success("支付成功");
+            return "<html>\n" +
+                    "<head>\n" +
+                    "\t<meta charset=\"UTF-8\">\n" +
+                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                    "\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body>\n" +
+                    "<a href=\"index.html\">支付成功,点击返回</a>\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
         }
 
-        return jsonUtil.fail("支付失败");
+        return "<html>\n" +
+                "<head>\n" +
+                "\t<meta charset=\"UTF-8\">\n" +
+                "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "\n" +
+                "</head>\n" +
+                "\n" +
+                "<body>\n" +
+                "<a href=\"index.html\">支付失败,点击返回</a>\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>";
     }
 
 }
