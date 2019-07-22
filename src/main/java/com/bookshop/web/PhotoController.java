@@ -50,7 +50,7 @@ public class PhotoController {
             String requestURI = request.getRequestURI();
             // 得到去掉了uri的路径
             String url = requestURL.substring(0, requestURL.length()-requestURI.length() + 1);
-            url="/usr/img/"+ fileName;
+            url=fileName;
 
          /*   if(bookService.GetBookInfoByBookId(bookid)==null){
 

@@ -36,7 +36,7 @@ public class BookController {
     /**
      * 模糊查询书籍名
      * @param request bookname
-     * @return list<book>
+     * @return
      */
     @GetMapping("/SelectByName")
     public List<Book> GetBookInfoByBookname(HttpServletRequest request)
