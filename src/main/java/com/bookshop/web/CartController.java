@@ -96,13 +96,12 @@ public class CartController {
     }
     /**
      * 清空用户购物车
-     * @param userid
      * @return json
      */
     @RequestMapping("/DeleteAllCart")
-    public JSONObject DeleteAllCart(HttpServletRequest request,long userid){
+    public JSONObject DeleteAllCart(HttpServletRequest request){
         JSONUtil jsonUtil = new JSONUtil();
-        userid = ((User) request.getSession().getAttribute("user")).getUserid();
+        long userid = ((User) request.getSession().getAttribute("user")).getUserid();
         if(!cartService.SelectCartByuserid(userid).isEmpty()){
             cartService.DeleteAllCartByUserId(userid);
             return jsonUtil.success("删除成功");
