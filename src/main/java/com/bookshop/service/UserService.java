@@ -57,7 +57,7 @@ public class UserService  {
     /*
     查询用户信息
      */
-    public User getUserInfo(int userid){
+    public User getUserInfo(long userid){
         return userdao.getUserInfo(userid);
     }
     /*

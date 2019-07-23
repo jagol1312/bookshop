@@ -24,7 +24,7 @@ public interface UserDao {
     查询用户
      */
     @Select("select * from user where userid =#{userid}")
-    public User getUserInfo(int userid);
+    public User getUserInfo(long userid);
     /*
     查询所有用户
      */

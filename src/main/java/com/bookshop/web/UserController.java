@@ -83,6 +83,10 @@ public class UserController {
         User user = (User)request.getSession().getAttribute("user");
         return userService.getUserInfo((int)user.getUserid());
     }
+    @RequestMapping("/userinfobyid")
+    public User getuserinfobyid(long id){
+        return userService.getUserInfo(id);
+    }
 
     /*
     用户退出
