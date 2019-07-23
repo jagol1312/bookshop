@@ -74,7 +74,7 @@ public class OrderController {
         return orderService.getOrderByUserId(userid);
     }
     @RequestMapping("/getorders")
-    public List<Orderinfo> getorders(){
+    public List<Map> getorders(){
         return orderService.getorders();
     }
 }

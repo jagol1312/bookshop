@@ -91,9 +91,12 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"G:/user/order.html\">支付成功，点击返回</a>\n" +
-                    "\n" +
-                    "\n" +
+                    "<button onclick=\"jump()\">支付成功,点击返回</button>\n" +
+                    "<script type=\"text/javascript\">\n" +
+                    "\tfunction jump() {\n" +
+                    "\t\twindow.open(\"G:/user/order.html\");\n" +
+                    "\t}\n" +
+                    "</script>\n" +
                     "</body>\n" +
                     "</html>";
 
@@ -107,9 +110,12 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"G:/user/order.html\">支付失败，点击返回</a>\n" +
-                    "\n" +
-                    "\n" +
+                    "<button onclick=\"jump()\">支付失败,点击返回</button>\n" +
+                    "<script type=\"text/javascript\">\n" +
+                    "\tfunction jump() {\n" +
+                    "\t\twindow.location.href=\"G:/user/order.html\"\n" +
+                    "\t}\n" +
+                    "</script>\n" +
                     "</body>\n" +
                     "</html>";
 
@@ -209,8 +215,12 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"G:/user/order.html\">支付成功,点击返回</a>\n" +
-                    "\n" +
+                    "<button onclick=\"jump()\">支付成功,点击返回</button>\n" +
+                    "<script type=\"text/javascript\">\n" +
+                    "\tfunction jump() {\n" +
+                    "\t\twindow.open(\"G:/user/order.html\");\n" +
+                    "\t}\n" +
+                    "</script>\n" +
                     "</body>\n" +
                     "</html>";
         }
@@ -224,9 +234,12 @@ public class AlipayDemoController {
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
-                "<a href=\"G:/user/order.html\">支付失败，点击返回</a>\n" +
-                "\n" +
-                "\n" +
+                "<button onclick=\"jump()\">支付失败,点击返回</button>\n" +
+                "<script type=\"text/javascript\">\n" +
+                "\tfunction jump() {\n" +
+                "\t\twindow.location.href=\"G:/user/order.html\"\n" +
+                "\t}\n" +
+                "</script>\n" +
                 "</body>\n" +
                 "</html>";
     }

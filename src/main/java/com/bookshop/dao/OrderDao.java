@@ -38,6 +38,6 @@ public interface OrderDao {
     @Delete("delete from orderinfo where userid = #{userid}")
     public void deleteOrderByUserId(long userid);
 
-    @Select("select * from orderinfo")
-    public List<Orderinfo> getOrders();
+    @Select("select orderinfo.*,user.username from orderinfo join user on orderinfo.userid=user.userid")
+    public List<Map> getOrders();
 }

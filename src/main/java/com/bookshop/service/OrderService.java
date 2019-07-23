@@ -45,7 +45,7 @@ public class OrderService {
          orderDao.deleteOrderByUserId(userid);
     }
 
-    public List<Orderinfo> getorders(){
+    public List<Map> getorders(){
         return orderDao.getOrders();
     }
 }
