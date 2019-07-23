@@ -105,6 +105,11 @@ public class UserController {
             this.userService.updateuser(user);
             return jsonUtil.success("修改成功！");
     }
+    @RequestMapping("/edituser")
+    public JSONObject edituser(User user){
+        this.userService.updateuser(user);
+        return jsonUtil.success("修改成功！");
+    }
     /*
     用户列表
      */
