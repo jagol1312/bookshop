@@ -65,7 +65,7 @@ public class AlipayDemoController {
         return result;
     }
 
-    @RequestMapping("/returnUrl")
+    @RequestMapping(value = "/returnUrl",produces = {"text/html;charset=UTF-8;", "application/json;charset=UTF-8;"})
     public String returnUrl(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, AlipayApiException {
         response.setContentType("text/html;charset=utf-8");
         response.setCharacterEncoding("utf-8");
@@ -91,14 +91,27 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"index.html\">支付成功，点击返回</a>\n" +
+                    "<a href=\"G:/user/order.html\">支付成功，点击返回</a>\n" +
                     "\n" +
                     "\n" +
                     "</body>\n" +
                     "</html>";
 
         }else{
-            return "支付失败";
+            return "<html>\n" +
+                    "<head>\n" +
+                    "\t<meta charset=\"UTF-8\">\n" +
+                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                    "\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body>\n" +
+                    "<a href=\"G:/user/order.html\">支付失败，点击返回</a>\n" +
+                    "\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>";
 
         }
     }
@@ -131,7 +144,7 @@ public class AlipayDemoController {
         }
     }
 
-    @RequestMapping("notify")
+    @RequestMapping(value = "notify",produces = {"text/html;charset=UTF-8;", "application/json;charset=UTF-8;"})
     public String notify(HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException {
         // 一定要验签，防止黑客篡改参数
 //        Map<String, String[]> parameterMap = request.getParameterMap();
@@ -196,13 +209,26 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"index.html\">支付成功,点击返回</a>\n" +
+                    "<a href=\"G:/user/order.html\">支付成功,点击返回</a>\n" +
                     "\n" +
                     "</body>\n" +
                     "</html>";
         }
 
-        return "支付失败";
+        return "<html>\n" +
+                "<head>\n" +
+                "\t<meta charset=\"UTF-8\">\n" +
+                "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "\n" +
+                "</head>\n" +
+                "\n" +
+                "<body>\n" +
+                "<a href=\"G:/user/order.html\">支付失败，点击返回</a>\n" +
+                "\n" +
+                "\n" +
+                "</body>\n" +
+                "</html>";
     }
 
 }
