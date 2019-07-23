@@ -56,8 +56,8 @@ public class AuthenticationFilter implements Filter  {
             chain.doFilter(request, response);
             return;
         }
-		// 排除登录请求
-		if (currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin") ) {
+		// 排除登录和注册请求
+		if (currentPath.endsWith("/userlogin")|| currentPath.endsWith("/adminlogin")|| currentPath.endsWith("/user/register")) {
 			chain.doFilter(request, response);
 			return;
         }

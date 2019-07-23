@@ -136,7 +136,7 @@ public class BookController {
     public JSONObject EditBook(Book book){
         JSONUtil jsonUtil = new JSONUtil();
         bookService.UpdateBook(book);
-        return jsonUtil.success("添加成功");
+        return jsonUtil.success("修改成功");
     }
 }
 

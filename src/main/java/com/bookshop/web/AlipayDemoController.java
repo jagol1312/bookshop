@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bookshop.model.Orderinfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-@Controller
+@RestController
 public class AlipayDemoController {
     @Autowired
     private OrderService orderService;
@@ -90,26 +91,14 @@ public class AlipayDemoController {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<a href=\"index.html\">返回</a>\n" +
+                    "<a href=\"index.html\">支付成功，点击返回</a>\n" +
                     "\n" +
                     "\n" +
                     "</body>\n" +
                     "</html>";
 
         }else{
-            return "<html>\n" +
-                    "<head>\n" +
-                    "\t<meta charset=\"UTF-8\">\n" +
-                    "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                    "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                    "\n" +
-                    "</head>\n" +
-                    "\n" +
-                    "<body>\n" +
-                    "<a href=\"index.html\">支付失败,点击返回</a>\n" +
-                    "\n" +
-                    "</body>\n" +
-                    "</html>";
+            return "支付失败";
 
         }
     }
@@ -213,19 +202,7 @@ public class AlipayDemoController {
                     "</html>";
         }
 
-        return "<html>\n" +
-                "<head>\n" +
-                "\t<meta charset=\"UTF-8\">\n" +
-                "\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-                "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "\n" +
-                "</head>\n" +
-                "\n" +
-                "<body>\n" +
-                "<a href=\"index.html\">支付失败,点击返回</a>\n" +
-                "\n" +
-                "</body>\n" +
-                "</html>";
+        return "支付失败";
     }
 
 }

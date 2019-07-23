@@ -1,6 +1,8 @@
 package com.bookshop.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Book {
 
   private long bookid;
@@ -8,6 +10,7 @@ public class Book {
   private String isbn;
   private String press;
   private String author;
+  @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
   private java.sql.Date pubdate;
   private double price;
   private String bookintroduce;
